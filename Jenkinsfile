@@ -1,10 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Build’) {
+        stage('Build') {
             steps {
-                echo “Build from jenkinsfile3 branch”
+                echo "Build from jenkinsfile3 branch"
             }
         }
     }
 }
+
