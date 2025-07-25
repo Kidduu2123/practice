@@ -4,6 +4,6 @@ content = var.filename.filea
 }
 
 resource "local_file" "fileb" {
-filename = "$path.module}/mydir/fileb.txt"
+filename = "${path.module}/mydir/fileb.txt"
 content = var.filename.fileb
 }
