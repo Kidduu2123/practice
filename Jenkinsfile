@@ -8,7 +8,7 @@ sh 'terraform init'
 }
 stage('Plan'){
 steps{
-Sh 'terraform plan'
+sh 'terraform plan'
 }
 }
 stage('Validate'){
