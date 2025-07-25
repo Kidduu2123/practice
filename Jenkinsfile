@@ -3,22 +3,22 @@ pipeline{
   stages{
 stage('Init'){
 steps{
-sh terraform init
+sh 'terraform init'
 }
 }
 stage('Plan'){
 steps{
-Sh terraform plan
+Sh 'terraform plan'
 }
 }
 stage('Validate'){
 steps{
-Sh terraform validate
+Sh 'terraform validate'
 }
 }
 stage('Apply'){
 steps{
-sh terraform apply –auto-approve
+sh 'terraform apply –auto-approve'
 }
 }
 }
