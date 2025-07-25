@@ -19,3 +19,4 @@ Steps{
 Sh terraform apply –auto-approve
 }
 }
+}
