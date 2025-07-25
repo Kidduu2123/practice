@@ -1,22 +1,25 @@
 pipeline{
-stages(‘Init'){
+  agent any
+  stages{
+stage('Init'){
 steps{
 sh terraform init
 }
 }
-stages(‘Plan’){
+stage('Plan'){
 steps{
 Sh terraform plan
 }
 }
-stages(‘Validate’){
+stage('Validate'){
 steps{
 Sh terraform validate
 }
 }
-stages(‘Apply’){
+stage('Apply'){
 steps{
 sh terraform apply –auto-approve
+}
 }
 }
 }
