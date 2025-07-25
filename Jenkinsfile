@@ -13,7 +13,7 @@ sh 'terraform plan'
 }
 stage('Validate'){
 steps{
-Sh 'terraform validate'
+sh 'terraform validate'
 }
 }
 stage('Apply'){
