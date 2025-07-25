@@ -1,6 +1,6 @@
 pipeline{
-Stages(‘Init){
-Steps{
+stages(‘Init'){
+steps{
 sh terraform init
 }
 }
@@ -10,13 +10,13 @@ Sh terraform plan
 }
 }
 stages(‘Validate’){
-Steps{
+steps{
 Sh terraform validate
 }
 }
-Stages(‘Apply’){
-Steps{
-Sh terraform apply –auto-approve
+stages(‘Apply’){
+steps{
+sh terraform apply –auto-approve
 }
 }
 }
