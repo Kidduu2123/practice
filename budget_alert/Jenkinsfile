@@ -26,7 +26,7 @@ pipeline {
     stage('Terraform Plan') {
       steps {
         dir('budget_alert') {
-          sh 'terraform plan -var-file="terraform.tfvars"'
+          sh 'terraform plan'
         }
       }
     }
@@ -34,7 +34,7 @@ pipeline {
     stage('Terraform Apply') {
       steps {
         dir('budget_alert') {
-          sh 'terraform apply -auto-approve -var-file="terraform.tfvars"'
+          sh 'terraform apply -auto-approve '
         }
       }
     }
