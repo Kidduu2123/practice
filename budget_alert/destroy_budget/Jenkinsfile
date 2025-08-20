@@ -1,0 +1,35 @@
+pipeline {
+  agent any
+
+  environment {
+    ARM_CLIENT_ID       = credentials('AZURE_CLIENT_ID')
+    ARM_CLIENT_SECRET   = credentials('AZURE_CLIENT_SECRET')
+    ARM_TENANT_ID       = credentials('AZURE_TENANT_ID')
+    ARM_SUBSCRIPTION_ID = credentials('AZURE_SUBSCRIPTION_ID')
+  }
+
+  stages {
+    stage('Clone Repo') {
+      steps {
+        git url: 'https://github.com/Kidduu2123/practice.git', branch: 'main'
+      }
+    }
+
+    stage('Terraform Init') {
+      steps {
+        dir('budget_alert/practice/budget_alert') {
+          sh 'terraform init'
+        }
+      }
+    }
+
+    stage('Destroy Budget Alert Only') {
+      steps {
+        dir('budget_alert/practice/budget_alert') {
+          sh 'terraform destroy -target=azurerm_consumption_budget_resource_group.budget -auto-approve'
+        }
+      }
+    }
+  }
+}
+
