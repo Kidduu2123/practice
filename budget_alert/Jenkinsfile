@@ -40,3 +40,12 @@ pipeline {
     }
   }
 }
+stage('Destroy Budget Alert Only') {
+  steps {
+    dir('budget_alert') {
+      sh 'terraform workspace select default || terraform workspace new default'
+      sh 'terraform destroy -target=azurerm_consumption_budget_resource_group.budget -auto-approve'
+    }
+  }
+}
+
