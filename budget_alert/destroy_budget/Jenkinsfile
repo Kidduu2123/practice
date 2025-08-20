@@ -1,4 +1,5 @@
-pipeline {
+
+     pipeline {
   agent any
 
   environment {
@@ -23,6 +24,14 @@ pipeline {
       }
     }
 
+    stage('Terraform Plan Targeted') {
+      steps {
+        dir('budget_alert') {
+          sh 'terraform plan -target=azurerm_consumption_budget_resource_group.budget'
+        }
+      }
+    }
+
     stage('Destroy Budget Alert Only') {
       steps {
         dir('budget_alert') {
@@ -30,6 +39,13 @@ pipeline {
         }
       }
     }
+
+    stage('Remove Resource From State (if needed)') {
+      steps {
+        dir('budget_alert') {
+          sh 'terraform state rm azurerm_consumption_budget_resource_group.budget || true'
+        }
+      }
+    }
   }
 }
-
