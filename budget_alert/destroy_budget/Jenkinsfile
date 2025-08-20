@@ -17,7 +17,7 @@ pipeline {
 
     stage('Terraform Init') {
       steps {
-        dir('budget_alert/practice/budget_alert') {
+        dir('budget_alert') {
           sh 'terraform init'
         }
       }
@@ -25,7 +25,7 @@ pipeline {
 
     stage('Destroy Budget Alert Only') {
       steps {
-        dir('budget_alert/practice/budget_alert') {
+        dir('budget_alert') {
           sh 'terraform destroy -target=azurerm_consumption_budget_resource_group.budget -auto-approve'
         }
       }
