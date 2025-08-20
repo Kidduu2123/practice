@@ -44,6 +44,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
   instances           = 2
   admin_username      = "azureuser"
   admin_password      = "P@ssword1234!"  # Use Key Vault or secure way in production
+  disable_password_authentication = false
 
   source_image_reference {
     publisher = "Canonical"
@@ -78,8 +79,8 @@ resource "azurerm_consumption_budget_resource_group" "budget" {
   time_grain         = "Monthly"
 
   time_period {
-    start_date = formatdate("YYYY-MM-DD", timestamp())
-    end_date   = "2050-12-31"
+    start_date = "2025-08-20T00:00:00Z"
+  end_date   = "2050-12-31T00:00:00Z"
   }
 
   notification {
