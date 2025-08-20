@@ -71,10 +71,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
 
 # Create Budget Alert for the Resource Group
 resource "azurerm_consumption_budget_resource_group" "budget" {
-  name                = var.budget_name
-  resource_group_name = azurerm_resource_group.main.name
-  amount              = var.budget_amount
-  time_grain          = "Monthly"
+  name               = var.budget_name
+  resource_group_id  = azurerm_resource_group.main.id  
+  amount             = var.budget_amount
+  time_grain         = "Monthly"
 
   time_period {
     start_date = formatdate("YYYY-MM-DD", timestamp())
@@ -82,19 +82,18 @@ resource "azurerm_consumption_budget_resource_group" "budget" {
   }
 
   notification {
-    enabled        = true
-    operator       = "GreaterThan"
-    threshold      = 80.0
-    threshold_type = "Actual"
-    contact_emails = [var.email_address]
+    enabled         = true
+    operator        = "GreaterThan"
+    threshold       = 80.0
+    threshold_type  = "Actual"
+    contact_emails  = [var.email_address]
   }
 
   notification {
-    enabled        = true
-    operator       = "GreaterThan"
-    threshold      = 100.0
-    threshold_type = "Actual"
-    contact_emails = [var.email_address]
+    enabled         = true
+    operator        = "GreaterThan"
+    threshold       = 100.0
+    threshold_type  = "Actual"
+    contact_emails  = [var.email_address]
   }
 }
-
