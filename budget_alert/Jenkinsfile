@@ -5,7 +5,7 @@ pipeline {
     ARM_CLIENT_ID       = credentials('AZURE_CLIENT_ID')
     ARM_CLIENT_SECRET   = credentials('AZURE_CLIENT_SECRET')
     ARM_TENANT_ID       = credentials('AZURE_TENANT_ID')
-    ARM_SUBSCRIPTION_ID = credentials('AZURE_SUBSCRIPTION_ID')
+    ARM_SUBSCRIPTION_ID= credentials('AZURE_SUBSCRIPTION_ID')
   }
 
   stages {
@@ -23,30 +23,21 @@ pipeline {
       }
     }
 
-    stage('Remove Budget Resource From State (if present)') {
+    stage('Terraform Plan') {
       steps {
         dir('budget_alert') {
-          sh '''
-            if terraform state list | grep -q azurerm_consumption_budget_resource_group.budget; then
-              echo "Removing budget resource from state..."
-              terraform state rm azurerm_consumption_budget_resource_group.budget
-            else
-              echo "Budget resource not found in state, skipping remove."
-            fi
-          '''
+          sh 'terraform plan'
         }
       }
     }
 
-    stage('Terraform Destroy Budget Alert Only') {
+    stage('Terraform Apply') {
       steps {
         dir('budget_alert') {
-          sh 'terraform workspace select default || terraform workspace new default'
-          sh 'terraform destroy -target=azurerm_consumption_budget_resource_group.budget -auto-approve'
+          sh 'terraform apply -auto-approve '
         }
       }
     }
   }
 }
-
-  
+       
