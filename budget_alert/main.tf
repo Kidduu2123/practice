@@ -72,7 +72,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "main" {
 }
 
 # Create Budget Alert for the Resource Group
-resource "azurerm_consumption_budget_resource_group" "budget" {
+resource "azurerm_consumption_budget_resource_group" "budgetp" {
   name               = var.budget_name
   resource_group_id  = azurerm_resource_group.main.id  
   amount             = var.budget_amount
